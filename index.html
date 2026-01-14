@@ -1,0 +1,80 @@
+<!-- <!DOCTYPE html> -->
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>reaction timer</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        #shape {
+            width: 200px;
+            height: 200px;
+            background-color: red;
+            position: relative;
+            display: square;
+        }
+
+        h1,
+        #instruction {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        #reaction-time {
+            font-size: 24px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Reaction tester</h1>
+    <p id="instruction">Click on the boxes as soon as you can</p>
+    <div id="shape"></div>
+    <script>
+        var start = new Date().getTime();
+        function getRandomColor() {
+            var letter = '0123456789ABCDEF';
+            var color = '#';
+            for (var i = 0; i < 6; i++) {
+                color += letter[Math.floor(Math.random() * 16)]
+            }
+            return color;
+        }
+        function move() {
+            var left = Math.random() * 300;
+            var top = Math.random() * 300;
+            var wh = Math.random() * 200 + 100; // Size between 100 and 300
+
+            var shape = document.getElementById("shape");
+
+            shape.style.left = left + "px";
+            shape.style.top = top + "px";
+            shape.style.width = wh + "px";
+            shape.style.height = wh + "px";
+            shape.style.display = "block";
+            shape.style.backgroundColor = getRandomColor();
+
+            start = new Date().getTime(); // You should declare start globally if needed elsewhere
+        }
+        move();
+
+        document.getElementById("shape").onclick = function () {
+            document.getElementById("shape").style.display = "none";
+            var end = new Date().getTime();
+            var timeTaken = (end - start) / 1000;
+            alert("Your reaction is " + timeTaken + " seconds");
+            move();
+
+        }
+    </script>
+</body>
+
+</html>
